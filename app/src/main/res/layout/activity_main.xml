@@ -23,6 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fl_main"
+        android:layout_below="@+id/appbar"
+        android:layout_above="@+id/ll_bottom"
         android:scrollbars="vertical">
     </FrameLayout>
 
@@ -39,21 +41,20 @@
         <LinearLayout
             android:id="@+id/ll_home"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/iv_home"
+                android:id="@+id/image_home"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:alpha="0.5"
-                app:srcCompat="@drawable/ic_home_black_24dp" />
+                android:layout_height="45dp"
+                app:srcCompat="@drawable/ic_home" />
 
             <TextView
-                android:id="@+id/tv_home"
+                android:id="@+id/text_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -64,7 +65,7 @@
         <LinearLayout
             android:id="@+id/ll_load_all"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
@@ -72,14 +73,15 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/iv_load_all"
+                android:id="@+id/image_load_all"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:alpha="0.5"
-                app:srcCompat="@drawable/ic_location" />
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                app:srcCompat="@drawable/ic_location"
+                />
 
             <TextView
-                android:id="@+id/tv_load_all"
+                android:id="@+id/text_load_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
