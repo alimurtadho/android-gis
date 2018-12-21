@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Mobile Business</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCnQWJLZPfvWp4qcLlHtBRkORjNDl_APi8</string>
+    <string name="title_activity_main">Mobile Business</string>
+    <string name="title_home">Home</string>
+    <string name="title_load_all">Load All</string>
+</resources>
