@@ -2,6 +2,6 @@ package com.dariyanti.uasgis.API;
 
 public class URL {
 
-    public static final String BASE_URL = "http://192.168.43.208/REST_MAP/index.php/",
-            MAIN_URL = "Map";
+    public static final String BASE_URL = "http://172.100.0.2/apigooglemaps/public/api/",
+            MAIN_URL = "students";
 }
