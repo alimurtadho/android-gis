@@ -30,11 +30,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.dariyanti.uasgis.API.MultipartJSONRequest;
+import com.dariyanti.uasgis.API.MyRequest;
 import com.dariyanti.uasgis.API.URL;
 import com.dariyanti.uasgis.Home.LoadMahasiswa.MahasiswaAdapter;
 import com.dariyanti.uasgis.Home.LoadMahasiswa.MahasiswaModel;
@@ -237,6 +240,44 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     }
 
     private void prosesTambahMahasiswa(){
+        String url = URL.MAIN_URL ;
+
+        MultipartJSONRequest request = new MultipartJSONRequest(Request.Method.POST, url,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            String success = response.getString("status");
+
+                            if (success.equals("success")){
+                                Toast.makeText(getContext(), "Tambah data sukses!", Toast.LENGTH_LONG).show();
+                                mTambahMahasiswaDialog.dismiss();
+                            }else{
+                                Toast.makeText(getContext(), "Tambah data gagal", Toast.LENGTH_LONG).show();
+                            }
+
+                        }catch (Exception e){
+                            Toast.makeText(getContext(), "Gagal : "+e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("erro",error.toString());
+                    }
+                });
+
+
+        request.addFile("photo", mImagePath);
+        request.addStringParam("nbi", et_nbi.getText().toString());
+        request.addStringParam("name",et_nama.getText().toString());
+        request.addStringParam("latitude", et_lat.getText().toString());
+        request.addStringParam("longitude",et_long.getText().toString());
+        request.setShouldCache(false);
+        Log.d("savedata", MyRequest.getDebugReqString(url, request));
+        MyRequest.getInstance(getContext()).addToRequestQueue(request);
+
 
 
     }
@@ -248,7 +289,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
         recyclerView = mShowMahasiswaDialog.findViewById(R.id.item_mahasiswa);
 
-        showMahasiswaDataset();
+        if (mahasiswaAdapter!=null){
+            mahasiswaModels.clear();
+            showMahasiswaDataset();
+        }else {
+            showMahasiswaDataset();
+        }
+
 
         mShowMahasiswaDialog.show();
         Window window = mShowMahasiswaDialog.getWindow();
@@ -259,7 +306,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private void showMahasiswaDataset(){
 //        Toast.makeText(getActivity(), "Sudah muncul", Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getActivity(),URL.BASE_URL + URL.MAIN_URL, Toast.LENGTH_SHORT).show();
-        jsonArrayRequest = new JsonArrayRequest(URL.BASE_URL + URL.MAIN_URL, new Response.Listener<JSONArray>() {
+        jsonArrayRequest = new JsonArrayRequest(URL.MAIN_URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -269,13 +316,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                     try{
                         mahasiswa = response.getJSONObject(i);
                         MahasiswaModel model = new MahasiswaModel();
-                        model.setNama(mahasiswa.getString("nama"));
+                        model.setNama(mahasiswa.getString("name"));
                         model.setNbi(mahasiswa.getString("nbi"));
-                        model.setTempat(mahasiswa.getString("tempat"));
-                        model.setTanggal_lahir(mahasiswa.getString("tanggal_lahir"));
-                        model.setTelepon(mahasiswa.getString("telepon"));
-                        model.setAlamat(mahasiswa.getString("alamat"));
-                        model.setFoto(mahasiswa.getString("foto"));
+                        model.setTempat(mahasiswa.getString("place_of_birth"));
+                        model.setTanggal_lahir(mahasiswa.getString("date_of_birth"));
+                        model.setTelepon(mahasiswa.getString("phone"));
+                        model.setAlamat(mahasiswa.getString("address"));
+                        model.setFoto(mahasiswa.getString("photo"));
                         model.setLatitude(mahasiswa.getString("latitude"));
                         model.setLongitude(mahasiswa.getString("longitude"));
                         mahasiswaModels.add(model);
@@ -294,6 +341,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         });
 
         requestQueue = Volley.newRequestQueue(getActivity());
+        jsonArrayRequest.setShouldCache(false);
         requestQueue.add(jsonArrayRequest);
     }
 
