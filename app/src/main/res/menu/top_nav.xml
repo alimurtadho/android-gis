@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_tambah"
         android:orderInCategory="100"
-        android:title="TAMBAH"
-        app:showAsAction="always|withText" />
+        android:title="Tambah"
+        app:showAsAction="never" />
 
 </menu>

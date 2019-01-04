@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView image_load_all, image_home;
     private TextView text_home, text_load_all;
     private LinearLayout ll_home, ll_load_all;
+    boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +78,27 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fl_main, classFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            MainActivity.this.finish();
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+
+        Toast.makeText(this, "Tekan tombol kembali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
 

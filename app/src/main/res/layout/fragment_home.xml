@@ -1,16 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_fragment">
         <fragment
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_maps"
+            android:name="com.google.android.gms.maps.SupportMapFragment">
 
         </fragment>
     </RelativeLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_tool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF0090"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp">
+        <RelativeLayout
+            android:id="@+id/rl_tujuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFF"
+            android:layout_margin="2dp">
+            <ImageView
+                android:id="@+id/image_search"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                app:srcCompat="@drawable/ic_search_black"/>
+            <EditText
+                android:id="@+id/et_tujuan"
+                android:layout_toRightOf="@id/image_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="Pilih Tujuan"
+                android:textSize="15dp"
+                android:background="#FFFFFF"
+                android:focusable="false"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_my_location_white" />
+
+</android.support.design.widget.CoordinatorLayout>
