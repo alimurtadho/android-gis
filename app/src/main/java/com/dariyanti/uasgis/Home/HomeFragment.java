@@ -93,6 +93,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private Location mLocation;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
+    private String lat="", lng="";
+
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionsGranted = false;
 
@@ -173,6 +175,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         btn_browse_foto = mTambahMahasiswaDialog.findViewById(R.id.btn_browse_foto);
         btn_simpan = mTambahMahasiswaDialog.findViewById(R.id.btn_simpan);
 
+        //menginisialisasi posisi awal
+        et_lat.setText(lat);
+        et_long.setText(lng);
+
         btn_browse_foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,6 +186,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                     @Override
                     public void onPickResult(PickResult pickResult) {
                         iv_foto.setImageURI(pickResult.getUri());
+                        Log.d("foto",pickResult.getUri().toString());
                         mImagePath = pickResult.getPath();
                     }
                 }).setOnPickCancel(new IPickCancel() {
@@ -272,6 +279,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         request.addFile("photo", mImagePath);
         request.addStringParam("nbi", et_nbi.getText().toString());
         request.addStringParam("name",et_nama.getText().toString());
+        request.addStringParam("place_of_birth",et_tempat_lahir.getText().toString());
+        request.addStringParam("date_of_birth",et_tanggal_lahir.getText().toString());
+        request.addStringParam("phone",et_telepon.getText().toString());
+        request.addStringParam("address",et_alamat.getText().toString());
         request.addStringParam("latitude", et_lat.getText().toString());
         request.addStringParam("longitude",et_long.getText().toString());
         request.setShouldCache(false);
@@ -311,18 +322,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
             public void onResponse(JSONArray response) {
 
                 JSONObject mahasiswa = null;
+                Log.d("json",response.toString());
 //                Toast.makeText(getActivity(),response.toString(), Toast.LENGTH_SHORT).show();
                 for (int i = 0; i< response.length(); i++){
                     try{
                         mahasiswa = response.getJSONObject(i);
                         MahasiswaModel model = new MahasiswaModel();
+                        model.setId(mahasiswa.getString("id"));
                         model.setNama(mahasiswa.getString("name"));
                         model.setNbi(mahasiswa.getString("nbi"));
                         model.setTempat(mahasiswa.getString("place_of_birth"));
                         model.setTanggal_lahir(mahasiswa.getString("date_of_birth"));
                         model.setTelepon(mahasiswa.getString("phone"));
                         model.setAlamat(mahasiswa.getString("address"));
-                        model.setFoto(mahasiswa.getString("photo"));
+                        model.setFoto(URL.MAHASISWA_IMAGE+mahasiswa.getString("photo"));
                         model.setLatitude(mahasiswa.getString("latitude"));
                         model.setLongitude(mahasiswa.getString("longitude"));
                         mahasiswaModels.add(model);
@@ -377,6 +390,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                                                     String.valueOf(mLocation.getLongitude()+" L")
                                     )
                             );
+                            lat = mLocation.getLatitude()+"";
+                            lng = mLocation.getLongitude()+"";
                             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng,
                                     16
                             ));
