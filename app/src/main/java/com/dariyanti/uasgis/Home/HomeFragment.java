@@ -176,8 +176,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         btn_simpan = mTambahMahasiswaDialog.findViewById(R.id.btn_simpan);
 
         //menginisialisasi posisi awal
-        et_lat.setText(lat);
-        et_long.setText(lng);
+//        et_lat.setText(lat);
+//        et_long.setText(lng);
 
         btn_browse_foto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,8 +251,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
         MultipartJSONRequest request = new MultipartJSONRequest(Request.Method.POST, url,
                 new Response.Listener<JSONObject>() {
+
                     @Override
                     public void onResponse(JSONObject response) {
+//                        Log.d("anu",response.toString());
                         try{
                             String success = response.getString("status");
 
@@ -271,12 +273,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("erro",error.toString());
+                        Log.d("volleyError",error.toString());
                     }
                 });
 
 
         request.addFile("photo", mImagePath);
+        request.addStringParam("_method","POST");
         request.addStringParam("nbi", et_nbi.getText().toString());
         request.addStringParam("name",et_nama.getText().toString());
         request.addStringParam("place_of_birth",et_tempat_lahir.getText().toString());
@@ -288,8 +291,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         request.setShouldCache(false);
         Log.d("savedata", MyRequest.getDebugReqString(url, request));
         MyRequest.getInstance(getContext()).addToRequestQueue(request);
-
-
 
     }
 
