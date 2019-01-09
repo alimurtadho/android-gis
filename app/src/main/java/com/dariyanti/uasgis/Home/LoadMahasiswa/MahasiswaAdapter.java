@@ -56,7 +56,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
 
     private Context context;
     private List<MahasiswaModel> mahasiswaModels;
-    private String latitude, longitude;
+    private String latitude, longitude, nbi;
     private Dialog mEditMahasiswaDialog, mDetailMahasiswaDialog;
 
     private EditText et_nbi, et_nama, et_tempat_lahir, et_tanggal_lahir, et_telepon, et_alamat, et_lat, et_long, et_tujuan;
@@ -80,7 +80,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
             super(v);
             text_nama = v.findViewById(R.id.text_nama);
             text_nbi = v.findViewById(R.id.text_nbi);
-//            button_directions = v.findViewById(R.id.button_directions);
+            button_directions = v.findViewById(R.id.button_directions);
             button_edit = v.findViewById(R.id.button_edit);
             button_hapus = v.findViewById(R.id.button_hapus);
             button_detail = v.findViewById(R.id.button_detail);
@@ -117,12 +117,12 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
                 editMahasiswa(i);
             }
         });
-//        viewHolder.button_directions.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getDirections(i);
-//            }
-//        });
+        viewHolder.button_directions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDirections(i);
+            }
+        });
 
     }
 
@@ -419,5 +419,14 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
 
     private void getDirections(final int position){
         latitude = mahasiswaModels.get(position).getLatitude();
+        longitude = mahasiswaModels.get(position).getLongitude();
+        nbi = mahasiswaModels.get(position).getNbi();
+
+        Intent intent = new Intent("direction");
+        //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
+        intent.putExtra("latitude",latitude+"");
+        intent.putExtra("longitude",longitude+"");
+        intent.putExtra("title",nbi+"");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 }

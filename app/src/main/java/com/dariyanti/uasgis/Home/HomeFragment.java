@@ -4,6 +4,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -12,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -66,9 +71,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback{
@@ -97,10 +104,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private Location mLocation;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-    private String lat="", lng="";
+    private String lat="", lng="",nbi;
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionsGranted = false;
+
+    private Double latitude, longitude;
 
     public HomeFragment() {
     }
@@ -162,9 +171,25 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
             }
         });
 
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(getDirection,
+                new IntentFilter("direction"));
+
         return view;
     }
 
+    public BroadcastReceiver getDirection = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            latitude = Double.parseDouble(intent.getStringExtra("latitude"));
+            longitude = Double.parseDouble(intent.getStringExtra("longitude"));
+            nbi = intent.getStringExtra("title");
+
+            createMarker(latitude,longitude,nbi);
+
+            mShowMahasiswaDialog.dismiss();
+        }
+    };
 
     @Override   
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -307,19 +332,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                 });
 
 
-        request.addFile("photo", mImagePath);
-        request.addStringParam("_method","POST");
+        //request.addFile("photo", mImagePath);
+        //request.addStringParam("_method","POST");
         request.addStringParam("nbi", et_nbi.getText().toString());
         request.addStringParam("name",et_nama.getText().toString());
-        request.addStringParam("place_of_birth",et_tempat_lahir.getText().toString());
-        request.addStringParam("date_of_birth",et_tanggal_lahir.getText().toString());
-        request.addStringParam("phone",et_telepon.getText().toString());
-        request.addStringParam("address",et_alamat.getText().toString());
+//        request.addStringParam("place_of_birth",et_tempat_lahir.getText().toString());
+//        request.addStringParam("date_of_birth",et_tanggal_lahir.getText().toString());
+//        request.addStringParam("phone",et_telepon.getText().toString());
+//        request.addStringParam("address",et_alamat.getText().toString());
         request.addStringParam("latitude", et_lat.getText().toString());
         request.addStringParam("longitude",et_long.getText().toString());
         request.setShouldCache(false);
         Log.d("savedata", MyRequest.getDebugReqString(url, request));
-        MyRequest.getInstance(getContext()).addToRequestQueue(request);
+        MyRequest.getInstance(getActivity()).addToRequestQueue(request);
 
     }
 
