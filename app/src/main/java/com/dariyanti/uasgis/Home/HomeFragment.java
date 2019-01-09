@@ -1,6 +1,7 @@
 package com.dariyanti.uasgis.Home;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
@@ -93,13 +94,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private Location mLocation;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-    private String lat="", lng="";
+    private String lat="", lng="", menu="";
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionsGranted = false;
 
-    public HomeFragment() {
-
+    @SuppressLint("ValidFragment")
+    public HomeFragment(String menu) {
+        this.menu = menu;
     }
 
     @Override
@@ -133,11 +135,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
             }
         });
 
+        if(menu.equals("loadAll")){
+            Toast.makeText(getActivity(), "asd", Toast.LENGTH_SHORT).show();
+        }
+
         return view;
     }
 
 
-    @Override
+    @Override   
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.top_nav, menu);
         super.onCreateOptionsMenu(menu, inflater);
