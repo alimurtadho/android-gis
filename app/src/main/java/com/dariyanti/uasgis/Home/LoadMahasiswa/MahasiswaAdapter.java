@@ -365,7 +365,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
         request.addStringParam("latitude", et_lat.getText().toString());
         request.addStringParam("longitude",et_long.getText().toString());
         request.setShouldCache(false);
-        Log.d("savedata", MyRequest.getDebugReqString(url, request));
+        Log.d("updatedata", MyRequest.getDebugReqString(url, request));
         MyRequest.getInstance(context).addToRequestQueue(request);
 
 
