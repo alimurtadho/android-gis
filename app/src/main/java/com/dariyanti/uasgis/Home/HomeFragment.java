@@ -97,17 +97,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private Location mLocation;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-    private String lat="", lng="", menu="";
+    private String lat="", lng="";
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionsGranted = false;
 
     public HomeFragment() {
     }
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -129,20 +125,30 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         ll_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "anumumas", Toast.LENGTH_SHORT).show();
+                mahasiswaModels.clear();
+                clearMarker();
+                updateMyPosition();
+                getMyPosition();
             }
         });
 
         ll_load_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "mas mas", Toast.LENGTH_SHORT).show();
+                showMahasiswaDataset("all");
+                if(mahasiswaModels.size() != 0){
+                    allMahasiswaMarker();
+                }else{
+                    Toast.makeText(getActivity(), "Ambil data dulu, tunggu yaa :)", Toast.LENGTH_SHORT).show();
+                    showMahasiswaDataset("all");
+                }
             }
         });
 
         et_tujuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mahasiswaModels.clear();
                 showMahasiswa();
             }
         });
@@ -154,12 +160,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                 getMyPosition();
             }
         });
-
-        if(menu.equals("loadAll")){
-            Toast.makeText(getActivity(), "asd", Toast.LENGTH_SHORT).show();
-        }
-
-
 
         return view;
     }
@@ -331,9 +331,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
         if (mahasiswaAdapter!=null){
             mahasiswaModels.clear();
-            showMahasiswaDataset();
+            showMahasiswaDataset("show");
         }else {
-            showMahasiswaDataset();
+            showMahasiswaDataset("show");
         }
 
 
@@ -343,7 +343,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
     }
 
-    private void showMahasiswaDataset(){
+    private void showMahasiswaDataset(final String options){
 //        Toast.makeText(getActivity(), "Sudah muncul", Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getActivity(),URL.BASE_URL + URL.MAIN_URL, Toast.LENGTH_SHORT).show();
         jsonArrayRequest = new JsonArrayRequest(URL.MAIN_URL, new Response.Listener<JSONArray>() {
@@ -372,7 +372,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                         e.printStackTrace();
                     }
                 }
-                setMahasiswaAdapter(mahasiswaModels);
+                if(options.equals("show")){
+                    setMahasiswaAdapter(mahasiswaModels);
+                }
+
 
             }
         }, new Response.ErrorListener() {
@@ -453,6 +456,27 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         }catch(SecurityException e){
             Log.e("Exception: %s", e.getMessage());
         }
+    }
+
+    private void allMahasiswaMarker(){
+        for (int i = 0; i < mahasiswaModels.size(); i++){
+            createMarker(Double.parseDouble(mahasiswaModels.get(i).getLatitude()),
+                    Double.parseDouble(mahasiswaModels.get(i).getLongitude()),mahasiswaModels.get(i).getNbi());
+        }
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng,
+                12
+        ));
+    }
+
+    protected Marker createMarker(double latitude, double longitude, String title) {
+
+        return mGoogleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title(title));
+    }
+
+    private void clearMarker(){
+        mGoogleMap.clear();
     }
 
     private void checkGpsPermissions() {

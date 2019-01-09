@@ -77,21 +77,21 @@
                     <!--android:background="@color/warnaAplikasi"-->
                     <!--android:text="DIRECTIONS"-->
                     <!--android:textColor="@android:color/white" />-->
-                <LinearLayout
-                    android:id="@+id/button_directions"
-                    android:layout_width="90dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20px"
-                    android:clickable="true"
-                    android:orientation="vertical"
-                    android:layout_toRightOf="@+id/button_detail">
-                    <ImageView
-                        android:id="@+id/image_route"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        app:srcCompat="@drawable/ic_route"
-                        />
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/button_directions"-->
+                    <!--android:layout_width="90dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_marginLeft="20px"-->
+                    <!--android:clickable="true"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_toRightOf="@+id/button_detail">-->
+                    <!--<ImageView-->
+                        <!--android:id="@+id/image_route"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--app:srcCompat="@drawable/ic_route"-->
+                        <!--/>-->
+                <!--</LinearLayout>-->
             </RelativeLayout>
 
         </LinearLayout>

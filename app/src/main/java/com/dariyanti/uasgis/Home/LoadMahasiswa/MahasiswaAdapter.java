@@ -80,7 +80,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
             super(v);
             text_nama = v.findViewById(R.id.text_nama);
             text_nbi = v.findViewById(R.id.text_nbi);
-            button_directions = v.findViewById(R.id.button_directions);
+//            button_directions = v.findViewById(R.id.button_directions);
             button_edit = v.findViewById(R.id.button_edit);
             button_hapus = v.findViewById(R.id.button_hapus);
             button_detail = v.findViewById(R.id.button_detail);
@@ -107,7 +107,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
         viewHolder.button_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("anu","kuda");
+//                Log.d("anu","kuda");
                 detailMahasiswa(i);
             }
         });
@@ -117,12 +117,12 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
                 editMahasiswa(i);
             }
         });
-        viewHolder.button_directions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDirections(i);
-            }
-        });
+//        viewHolder.button_directions.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getDirections(i);
+//            }
+//        });
 
     }
 
