@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -79,6 +80,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private FloatingActionButton fab_position;
     private String mImagePath;
 
+    private LinearLayout ll_home, ll_load_all;
+
     private JsonArrayRequest jsonArrayRequest;
     private RequestQueue requestQueue;
     private List<MahasiswaModel> mahasiswaModels;
@@ -99,10 +102,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionsGranted = false;
 
-    @SuppressLint("ValidFragment")
-    public HomeFragment(String menu) {
-        this.menu = menu;
+    public HomeFragment() {
     }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,7 +122,23 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
         et_tujuan = view.findViewById(R.id.et_tujuan);
         fab_position = view.findViewById(R.id.fab_position);
+        ll_home = view.findViewById(R.id.ll_home);
+        ll_load_all = view.findViewById(R.id.ll_load_all);
         mahasiswaModels = new ArrayList<>();
+
+        ll_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "anumumas", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ll_load_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "mas mas", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         et_tujuan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +158,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         if(menu.equals("loadAll")){
             Toast.makeText(getActivity(), "asd", Toast.LENGTH_SHORT).show();
         }
+
+
 
         return view;
     }

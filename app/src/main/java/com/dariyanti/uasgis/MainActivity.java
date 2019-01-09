@@ -29,9 +29,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView image_load_all, image_home;
-    private TextView text_home, text_load_all;
-    private LinearLayout ll_home, ll_load_all;
+//    private ImageView image_load_all, image_home;
+//    private TextView text_home, text_load_all;
+
     boolean doubleBackToExitPressedOnce = false;
 
     private JsonArrayRequest jsonArrayRequest;
@@ -45,61 +45,61 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        initFragment(new HomeFragment("home"));
+        initFragment(new HomeFragment());
 
-        ll_home = findViewById(R.id.ll_home);
-        ll_load_all = findViewById(R.id.ll_load_all);
-        image_home = findViewById(R.id.image_home);
-        image_load_all = findViewById(R.id.image_load_all);
-        text_home = findViewById(R.id.text_home);
-        text_load_all = findViewById(R.id.text_load_all);
-        final ColorStateList oldColors = text_home.getTextColors();
-        text_home.setTextColor(Color.parseColor("#FF0090"));
-        image_home.setPressed(true);
+//        ll_home = findViewById(R.id.ll_home);
+//        ll_load_all = findViewById(R.id.ll_load_all);
+//        image_home = findViewById(R.id.image_home);
+//        image_load_all = findViewById(R.id.image_load_all);
+//        text_home = findViewById(R.id.text_home);
+//        text_load_all = findViewById(R.id.text_load_all);
+//        final ColorStateList oldColors = text_home.getTextColors();
+//        text_home.setTextColor(Color.parseColor("#FF0090"));
+//        image_home.setPressed(true);
 
-        ll_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                text_home.setTextColor(Color.parseColor("#FF0090"));
-                text_load_all.setTextColor(oldColors);
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        image_home.setPressed(true);
-                        image_load_all.setPressed(false);
-                    }
-                });
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                Fragment fragment = fragmentManager.findFragmentById(R.id.fl_main);
-                if(fragment != null && fragment instanceof HomeFragment){
-
-                }else{
-                    initFragment(new HomeFragment("home"));
-                }
-            }
-        });
-
-        ll_load_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                text_load_all.setTextColor(Color.parseColor("#FF0090"));
-                text_home.setTextColor(oldColors);
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        image_load_all.setPressed(true);
-                        image_home.setPressed(false);
-                    }
-                });
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                Fragment fragment = fragmentManager.findFragmentById(R.id.fl_main);
-                if(fragment != null && fragment instanceof HomeFragment){
-
-                }else{
-                    initFragment(new HomeFragment("loadAll"));
-                }
-            }
-        });
+//        ll_home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                text_home.setTextColor(Color.parseColor("#FF0090"));
+//                text_load_all.setTextColor(oldColors);
+//                new Handler().post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        image_home.setPressed(true);
+//                        image_load_all.setPressed(false);
+//                    }
+//                });
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                Fragment fragment = fragmentManager.findFragmentById(R.id.fl_main);
+//                if(fragment != null && fragment instanceof HomeFragment){
+//
+//                }else{
+//                    initFragment(new HomeFragment());
+//                }
+//            }
+//        });
+//
+//        ll_load_all.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                text_load_all.setTextColor(Color.parseColor("#FF0090"));
+//                text_home.setTextColor(oldColors);
+//                new Handler().post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        image_load_all.setPressed(true);
+//                        image_home.setPressed(false);
+//                    }
+//                });
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                Fragment fragment = fragmentManager.findFragmentById(R.id.fl_main);
+//                if(fragment != null && fragment instanceof HomeFragment){
+//
+//                }else{
+//                    initFragment(new HomeFragment());
+//                }
+//            }
+//        });
 
     }
 
