@@ -136,12 +136,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
             @Override
             public void onClick(View view) {
                 showMahasiswaDataset("all");
-                if(mahasiswaModels.size() != 0){
-                    allMahasiswaMarker();
-                }else{
-                    Toast.makeText(getActivity(), "Ambil data dulu, tunggu yaa :)", Toast.LENGTH_SHORT).show();
-                    showMahasiswaDataset("all");
-                }
+
+//                if(mahasiswaModels.size() != 0){
+//
+//                }else{
+//                    Toast.makeText(getActivity(), "Ambil data dulu, tunggu yaa :)", Toast.LENGTH_SHORT).show();
+//                    showMahasiswaDataset("all");
+//                }
             }
         });
 
@@ -329,12 +330,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
         recyclerView = mShowMahasiswaDialog.findViewById(R.id.item_mahasiswa);
 
-        if (mahasiswaAdapter!=null){
-            mahasiswaModels.clear();
+
             showMahasiswaDataset("show");
-        }else {
-            showMahasiswaDataset("show");
-        }
+
 
 
         mShowMahasiswaDialog.show();
@@ -374,6 +372,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                 }
                 if(options.equals("show")){
                     setMahasiswaAdapter(mahasiswaModels);
+                }else if (options.equals("all")){
+                    allMahasiswaMarker();
                 }
 
 
