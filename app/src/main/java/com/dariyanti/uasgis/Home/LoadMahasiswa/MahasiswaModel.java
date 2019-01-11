@@ -10,6 +10,14 @@ public class MahasiswaModel {
     private String telepon;
     private String fakultas;
     private String jurusan;
+    private String jenis_kelamin;
+    private String hobi;
+    private String kewarganegaraan;
+    private String alamat;
+    private String foto;
+    private String latitude;
+    private String longitude;
+
 
     public String getFakultas() {
         return fakultas;
@@ -50,14 +58,6 @@ public class MahasiswaModel {
     public void setKewarganegaraan(String kewarganegaraan) {
         this.kewarganegaraan = kewarganegaraan;
     }
-
-    private String jenis_kelamin;
-    private String hobi;
-    private String kewarganegaraan;
-    private String alamat;
-    private String foto;
-    private String latitude;
-    private String longitude;
 
     public String getId() {
         return id;

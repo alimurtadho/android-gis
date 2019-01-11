@@ -56,14 +56,16 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
 
     private Context context;
     private List<MahasiswaModel> mahasiswaModels;
-    private String latitude, longitude, nbi;
+    private String latitude, longitude, nbi, fakultas;
     private Dialog mEditMahasiswaDialog, mDetailMahasiswaDialog;
 
     private EditText et_nbi, et_nama, et_tempat_lahir, et_tanggal_lahir, et_telepon, et_alamat, et_lat, et_long, et_tujuan;
     private ImageView iv_foto, iv_v_foto;
     private Button btn_browse_foto, btn_simpan;
     private String mImagePath;
-    private TextView tv_judul,tv_v_nbi,tv_v_nama, tv_v_tempat_lahir, tv_v_tanggal_lahir, tv_v_telephone, tv_v_alamat, tv_v_lat, tv_v_long;
+    private TextView tv_judul,tv_v_nbi,tv_v_nama, tv_v_tempat_lahir, tv_v_tanggal_lahir,
+            tv_v_telephone, tv_v_alamat, tv_v_fakultas, tv_v_jurusan, tv_v_hobi, tv_v_jenis_kelamin,
+            tv_v_kewarganegaraan, tv_v_lat, tv_v_long;
     private RequestQueue requestQueue;
 
     public MahasiswaAdapter(Context context, List models){
@@ -141,6 +143,11 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
         tv_v_tanggal_lahir= mDetailMahasiswaDialog.findViewById(R.id.tv_v_tanggal_lahir);
         tv_v_telephone= mDetailMahasiswaDialog.findViewById(R.id.tv_v_telephone);
         tv_v_alamat= mDetailMahasiswaDialog.findViewById(R.id.tv_v_alamat);
+        tv_v_fakultas = mDetailMahasiswaDialog.findViewById(R.id.tv_v_fakultas);
+        tv_v_jurusan = mDetailMahasiswaDialog.findViewById(R.id.tv_v_jurusan);
+        tv_v_jenis_kelamin = mDetailMahasiswaDialog.findViewById(R.id.tv_v_jenis_kelamin);
+        tv_v_hobi = mDetailMahasiswaDialog.findViewById(R.id.tv_v_hobi);
+        tv_v_kewarganegaraan = mDetailMahasiswaDialog.findViewById(R.id.tv_v_kewarganegaraan);
         tv_v_lat= mDetailMahasiswaDialog.findViewById(R.id.tv_v_lat);
         tv_v_long= mDetailMahasiswaDialog.findViewById(R.id.tv_v_long);
         iv_v_foto = mDetailMahasiswaDialog.findViewById(R.id.iv_v_foto);
@@ -150,6 +157,13 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
         tv_v_tempat_lahir.setText(mahasiswaModels.get(position).getTempat());
         tv_v_tanggal_lahir.setText(mahasiswaModels.get(position).getTanggal_lahir());
         tv_v_telephone.setText(mahasiswaModels.get(position).getTelepon());
+        tv_v_jurusan.setText(mahasiswaModels.get(position).getJurusan());
+        tv_v_alamat.setText(mahasiswaModels.get(position).getAlamat());
+        tv_v_fakultas.setText(mahasiswaModels.get(position).getFakultas());
+        tv_v_jurusan.setText(mahasiswaModels.get(position).getJurusan());
+        tv_v_jenis_kelamin.setText(mahasiswaModels.get(position).getJenis_kelamin());
+        tv_v_hobi.setText(mahasiswaModels.get(position).getHobi());
+        tv_v_kewarganegaraan.setText(mahasiswaModels.get(position).getKewarganegaraan());
         tv_v_lat.setText(mahasiswaModels.get(position).getLatitude());
         tv_v_long.setText(mahasiswaModels.get(position).getLongitude());
         RequestOptions requestOptions = new RequestOptions()
@@ -371,66 +385,18 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
         request.setShouldCache(false);
         Log.d("updatedata", MyRequest.getDebugReqString(url, request));
         MyRequest.getInstance(context).addToRequestQueue(request);
-
-
-//        requestQueue = Volley.newRequestQueue(context);
-//        StringRequest request = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    String success = jsonObject.getString("status");
-//
-//
-//                    if (success.equals("success")) {
-//                        Toast.makeText(context, "Edit data sukses!", Toast.LENGTH_LONG).show();
-//                        mEditMahasiswaDialog.dismiss();
-//                    } else {
-//                        Toast.makeText(context, "Edit data gagal", Toast.LENGTH_LONG).show();
-//                    }
-//
-//
-//
-//                }catch (Exception e){
-//                    Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(context,"Gagal update ke jadwak",Toast.LENGTH_LONG).show();
-//            }
-//        }) {
-//
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String,String> request  = new HashMap<String, String>();
-//                request.put("nbi", et_nbi.getText().toString());
-//                request.put("name", et_nama.getText().toString());
-//                request.put("place_of_birth", et_tempat_lahir.getText().toString());
-//                request.put("date_of_birth", et_tanggal_lahir.getText().toString());
-//                request.put("phone", et_telepon.getText().toString());
-//                request.put("address", et_alamat.getText().toString());
-//                request.put("latitude", et_lat.getText().toString());
-//                request.put("longitude", et_long.getText().toString());
-//
-//                return request;
-//            }
-//        };
-//        requestQueue.add(request);
     }
 
     private void getDirections(final int position){
         latitude = mahasiswaModels.get(position).getLatitude();
         longitude = mahasiswaModels.get(position).getLongitude();
         nbi = mahasiswaModels.get(position).getNbi();
-
+        fakultas = mahasiswaModels.get(position).getFakultas();
         Intent intent = new Intent("direction");
         //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
         intent.putExtra("latitude",latitude+"");
         intent.putExtra("longitude",longitude+"");
-        intent.putExtra("title",nbi+"");
+        intent.putExtra("title",nbi+" / "+fakultas);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 }

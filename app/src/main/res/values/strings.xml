@@ -4,4 +4,26 @@
     <string name="title_activity_main">Mobile Business</string>
     <string name="title_home">Home</string>
     <string name="title_load_all">Load All</string>
+    <string-array name="fakultas">
+        <item>Teknik</item>
+        <item>Hukum</item>
+        <item>Psikologi</item>
+        <item>Sastra</item>
+        <item>Ekonomi</item>
+        <item>Fisip</item>
+    </string-array>
+    <string-array name="jurusan">
+        <item>Informatika</item>
+        <item>Sipil</item>
+        <item>Arsitektur</item>
+        <item>Mesin</item>
+        <item>Industri</item>
+        <item>Elektro</item>
+    </string-array>
+    <string-array name="kewarganeraan">
+        <item>Indonesia</item>
+        <item>Malaysia</item>
+        <item>Vietnam</item>
+        <item>Brunei</item>
+    </string-array>
 </resources>

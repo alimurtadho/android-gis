@@ -31,12 +31,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -79,6 +85,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -97,6 +104,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private Button btn_browse_foto, btn_simpan;
     private FloatingActionButton fab_position;
     private String mImagePath;
+    private Spinner spin_kewarganegaraan, spin_jurusan, spin_fakultas;
+    private RadioGroup rg_jenis_kelamin;
+    private RadioButton rb_jenis_kelamin;
+    private CheckBox cb_bola, cb_basket, cb_lari, cb_renang;
 
     private LinearLayout ll_home, ll_load_all;
 
@@ -115,7 +126,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private Location mLocation;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-    private String lat="", lng="",nbi;
+    private String lat="", lng="",nbi = "", fakultas = "", jurusan = "", jenis_kelamin = "", hobi = "", kewarganegaraan = "";
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionsGranted = false;
@@ -449,6 +460,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         et_tempat_lahir = mTambahMahasiswaDialog.findViewById(R.id.et_tempat_lahir);
         et_tanggal_lahir = mTambahMahasiswaDialog.findViewById(R.id.et_tanggal_lahir);
         et_telepon = mTambahMahasiswaDialog.findViewById(R.id.et_telepon);
+        spin_fakultas = mTambahMahasiswaDialog.findViewById(R.id.spin_fakultas);
+        spin_jurusan = mTambahMahasiswaDialog.findViewById(R.id.spin_jurusan);
+        spin_kewarganegaraan = mTambahMahasiswaDialog.findViewById(R.id.spin_kewarganegaraan);
+        rg_jenis_kelamin = mTambahMahasiswaDialog.findViewById(R.id.rg_jenis_kelamin);
+
+        cb_bola = mTambahMahasiswaDialog.findViewById(R.id.cb_bola);
+        cb_basket = mTambahMahasiswaDialog.findViewById(R.id.cb_basket);
+        cb_lari = mTambahMahasiswaDialog.findViewById(R.id.cb_lari);
+        cb_renang = mTambahMahasiswaDialog.findViewById(R.id.cb_renang);
         et_lat = mTambahMahasiswaDialog.findViewById(R.id.et_lat);
         et_long = mTambahMahasiswaDialog.findViewById(R.id.et_long);
         iv_foto = mTambahMahasiswaDialog.findViewById(R.id.iv_foto);
@@ -458,6 +478,54 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         //menginisialisasi posisi awal
         et_lat.setText(lat);
         et_long.setText(lng);
+        final ArrayAdapter<CharSequence> fakultasAdapter = ArrayAdapter.createFromResource(getContext(), R.array.fakultas, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> jurusanAdapter = ArrayAdapter.createFromResource(getContext(), R.array.jurusan, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> kewarganegaraanAdapter = ArrayAdapter.createFromResource(getContext(), R.array.kewarganeraan, android.R.layout.simple_spinner_item);
+
+        fakultasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        jurusanAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        kewarganegaraanAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin_fakultas.setAdapter(fakultasAdapter);
+        spin_jurusan.setAdapter(jurusanAdapter);
+        spin_kewarganegaraan.setAdapter(kewarganegaraanAdapter);
+
+        spin_fakultas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                fakultas = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                fakultas = "";
+            }
+        });
+
+        spin_kewarganegaraan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                kewarganegaraan = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                kewarganegaraan = "";
+            }
+        });
+
+        spin_jurusan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                jurusan = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                jurusan = "";
+            }
+        });
+
+
 
         btn_browse_foto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -516,6 +584,34 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                 }else if(TextUtils.isEmpty(et_long.getText())){
                     et_long.setError("Long Tidak Boleh Kosong");
                 }else{
+
+                    if (cb_basket.isChecked() && hobi.equals("")) {
+                        hobi = cb_basket.getText()+"";
+                    }else{
+                        hobi = hobi + "," +cb_basket.getText();
+                    }
+
+                    if (cb_bola.isChecked() && hobi.equals("")) {
+                        hobi = cb_bola.getText()+"";
+                    }else{
+                        hobi = hobi + "," + cb_bola.getText();
+                    }
+
+                    if (cb_lari.isChecked() && hobi.equals("")) {
+                        hobi =cb_lari.getText()+"";
+                    }else{
+                        hobi = hobi + "," + cb_lari.getText();
+                    }
+
+                    if (cb_renang.isChecked() && hobi.equals("")) {
+                        hobi = cb_renang.getText()+"";
+                    }else {
+                        hobi = hobi + "," + cb_renang.getText();
+                    }
+                    int selectedGender = rg_jenis_kelamin.getCheckedRadioButtonId();
+                    rb_jenis_kelamin = mTambahMahasiswaDialog.findViewById(selectedGender);
+                    jenis_kelamin = rb_jenis_kelamin.getText().toString();
+
                     prosesTambahMahasiswa();
                 }
             }
@@ -566,6 +662,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         request.addStringParam("date_of_birth",et_tanggal_lahir.getText().toString());
         request.addStringParam("phone",et_telepon.getText().toString());
         request.addStringParam("address",et_alamat.getText().toString());
+        request.addStringParam("faculty",fakultas);
+        request.addStringParam("major",jurusan);
+        request.addStringParam("hoby", hobi);
+        request.addStringParam("gender",jenis_kelamin);
+        request.addStringParam("nationality", kewarganegaraan);
         request.addStringParam("latitude", et_lat.getText().toString());
         request.addStringParam("longitude",et_long.getText().toString());
         request.setShouldCache(false);
@@ -597,7 +698,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
             public void onResponse(JSONArray response) {
 
                 JSONObject mahasiswa = null;
-                Log.d("json",response.toString());
+//                Log.d("json",response.toString());
 //                Toast.makeText(getActivity(),response.toString(), Toast.LENGTH_SHORT).show();
                 for (int i = 0; i< response.length(); i++){
                     try{
@@ -610,11 +711,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                         model.setTanggal_lahir(mahasiswa.getString("date_of_birth"));
                         model.setTelepon(mahasiswa.getString("phone"));
                         model.setAlamat(mahasiswa.getString("address"));
-//                        model.setFakultas(mahasiswa.getString("faculty"));
-//                        model.setJurusan(mahasiswa.getString("major"));
-//                        model.setJenis_kelamin(mahasiswa.getString("gender"));
-//                        model.setHobi(mahasiswa.getString("hoby"));
-//                        model.setKewarganegaraan(mahasiswa.getString("nationality"));
+                        model.setFakultas(mahasiswa.getString("faculty"));
+                        model.setJurusan(mahasiswa.getString("major"));
+                        model.setJenis_kelamin(mahasiswa.getString("gender"));
+                        model.setHobi(mahasiswa.getString("hoby"));
+                        model.setKewarganegaraan(mahasiswa.getString("nationality"));
                         model.setFoto(URL.MAHASISWA_IMAGE+mahasiswa.getString("photo"));
                         model.setLatitude(mahasiswa.getString("latitude"));
                         model.setLongitude(mahasiswa.getString("longitude"));
@@ -714,7 +815,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private void allMahasiswaMarker(){
         for (int i = 0; i < mahasiswaModels.size(); i++){
             String title = "";
-            title = mahasiswaModels.get(i).getNbi() /*+ " " + mahasiswaModels.get(i).getNama()*/;
+            title = mahasiswaModels.get(i).getNbi() + " - " + mahasiswaModels.get(i).getFakultas();
             createMarker(Double.parseDouble(mahasiswaModels.get(i).getLatitude()),
                     Double.parseDouble(mahasiswaModels.get(i).getLongitude()),title);
         }

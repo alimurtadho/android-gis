@@ -94,6 +94,150 @@
                     android:inputType="text"/>
             </android.support.design.widget.TextInputLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/tv_fakultas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fakultas"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="20dp"/>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_fakultas">
+                    <Spinner
+                        android:id="@+id/spin_fakultas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="3dp"
+                        android:entries="@array/fakultas">
+                    </Spinner>
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/tv_jurusan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jurusan"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="20dp"/>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_jurusan">
+                    <Spinner
+                        android:id="@+id/spin_jurusan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="3dp"
+                        android:entries="@array/jurusan">
+                    </Spinner>
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/tv_jenis_kelamin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jenis Kelamin"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="20dp"/>
+                <RadioGroup
+                    android:id="@+id/rg_jenis_kelamin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_jenis_kelamin"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pria"
+                        android:id="@+id/rb_pria"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wanita"
+                        android:id="@+id/rb_wanita"/>
+                </RadioGroup>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/tv_hobi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hobi"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="20dp"/>
+                <CheckBox
+                    android:layout_toRightOf="@+id/tv_hobi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cb_bola"
+                    android:text="Bola"/>
+                <CheckBox
+                    android:layout_toRightOf="@+id/cb_bola"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cb_renang"
+                    android:text="Renang"/>
+                <CheckBox
+                    android:layout_toRightOf="@+id/cb_renang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cb_basket"
+                    android:text="Basket"/>
+                <CheckBox
+                    android:layout_toRightOf="@+id/cb_basket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cb_lari"
+                    android:text="Lari"/>
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/tv_kewarganegaraan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kewarganegaraan"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="20dp"/>
+                <Spinner
+                    android:id="@+id/spin_kewarganegaraan"
+                    android:layout_toRightOf="@+id/tv_kewarganegaraan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:entries="@array/kewarganeraan">
+                </Spinner>
+            </RelativeLayout>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
