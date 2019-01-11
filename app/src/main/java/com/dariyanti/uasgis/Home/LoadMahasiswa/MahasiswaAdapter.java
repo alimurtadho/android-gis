@@ -73,13 +73,15 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView text_nama, text_nbi;
+        public TextView text_nama, text_nbi, text_alamat, text_tempat;
         public Button button_edit, button_hapus, button_detail;
         public LinearLayout button_directions;
         public ViewHolder(View v){
             super(v);
             text_nama = v.findViewById(R.id.text_nama);
             text_nbi = v.findViewById(R.id.text_nbi);
+//            text_alamat = v.findViewById(R.id.text_alamat);
+//            text_tempat = v.findViewById(R.id.text_tempat);
             button_directions = v.findViewById(R.id.button_directions);
             button_edit = v.findViewById(R.id.button_edit);
             button_hapus = v.findViewById(R.id.button_hapus);
@@ -98,6 +100,8 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
     public void onBindViewHolder(MahasiswaAdapter.ViewHolder viewHolder, final int i) {
         viewHolder.text_nama.setText("Nama : "+mahasiswaModels.get(i).getNama());
         viewHolder.text_nbi.setText("NBI : "+mahasiswaModels.get(i).getNbi());
+//        viewHolder.text_alamat.setText("Alamat: "+mahasiswaModels.get(i).getAlamat());
+//        viewHolder.text_tempat.setText("Tempat : "+mahasiswaModels.get(i).getTempat());
         viewHolder.button_hapus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,7 +193,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
     }
 
     private void myDelMahasiswa(final int position) {
-        String url = URL.MAIN_URL +mahasiswaModels.get(position).getId();
+        String url = URL.MAIN_URL +"/"+mahasiswaModels.get(position).getId();
         Log.d("url",url);
 
         requestQueue = Volley.newRequestQueue(context);
@@ -324,7 +328,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
 
     private void prosesEditMahasiswa(int position) {
 
-        String url = URL.MAIN_URL +mahasiswaModels.get(position).getId();
+        String url = URL.MAIN_URL +"/"+mahasiswaModels.get(position).getId();
 //        Log.d("url",url);
         MultipartJSONRequest request = new MultipartJSONRequest(Request.Method.POST, url,
                 new Response.Listener<JSONObject>() {

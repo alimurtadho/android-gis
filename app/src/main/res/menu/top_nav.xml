@@ -7,4 +7,18 @@
         android:title="Tambah"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_tujuan"
+        android:orderInCategory="100"
+        android:title="Tujuan"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_keluar"
+        android:orderInCategory="100"
+        android:title="Keluar"
+        app:showAsAction="never" />
+
+
+
 </menu>

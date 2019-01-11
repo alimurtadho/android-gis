@@ -90,6 +90,7 @@ import java.util.Locale;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
+    // inisialisasi awal variabel
     private Dialog mTambahMahasiswaDialog, mShowMahasiswaDialog;
     private EditText et_nbi, et_nama, et_tempat_lahir, et_tanggal_lahir, et_telepon, et_alamat, et_lat, et_long, et_tujuan;
     private ImageView iv_foto;
@@ -128,7 +129,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //google API key didapatkan dari string resource
         GOOGLE_API_KEY = getActivity().getResources().getString(R.string.google_maps_key);
+        //marker point digunakan untuk menampung array list dari tujuan dan awal
         mMarkerPoints = new ArrayList<>();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -137,24 +140,34 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragment_maps);
         supportMapFragment.getMapAsync(this);
 
+        //untuk mendapatkan lokasi terkini
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
+        //untuk mendapatkan semua palet atau komponen yang ada di activity_main.xml
         et_tujuan = view.findViewById(R.id.et_tujuan);
         fab_position = view.findViewById(R.id.fab_position);
         ll_home = view.findViewById(R.id.ll_home);
         ll_load_all = view.findViewById(R.id.ll_load_all);
+
+        //deklarasikan untuk menampung data
         mahasiswaModels = new ArrayList<>();
 
+        // ketika button home diclick
         ll_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // hapus data yang telah di fetch
                 mahasiswaModels.clear();
+                // hapus markernya
                 clearMarker();
+                // update posisi sekarang
                 updateMyPosition();
+                // ambil posisi sekarang
                 getMyPosition();
             }
         });
 
+        // ketika load all diclick
         ll_load_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,6 +175,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
             }
         });
 
+        // ketika isian tujuan diclick
         et_tujuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -411,6 +425,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                 tambahMahasiswa();
                 return true;
 
+            case R.id.action_keluar:
+                getActivity().finish();
+                return true;
+
+            case R.id.action_tujuan:
+                mahasiswaModels.clear();
+                showMahasiswa();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -588,6 +610,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                         model.setTanggal_lahir(mahasiswa.getString("date_of_birth"));
                         model.setTelepon(mahasiswa.getString("phone"));
                         model.setAlamat(mahasiswa.getString("address"));
+//                        model.setFakultas(mahasiswa.getString("faculty"));
+//                        model.setJurusan(mahasiswa.getString("major"));
+//                        model.setJenis_kelamin(mahasiswa.getString("gender"));
+//                        model.setHobi(mahasiswa.getString("hoby"));
+//                        model.setKewarganegaraan(mahasiswa.getString("nationality"));
                         model.setFoto(URL.MAHASISWA_IMAGE+mahasiswa.getString("photo"));
                         model.setLatitude(mahasiswa.getString("latitude"));
                         model.setLongitude(mahasiswa.getString("longitude"));
@@ -686,8 +713,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
     private void allMahasiswaMarker(){
         for (int i = 0; i < mahasiswaModels.size(); i++){
+            String title = "";
+            title = mahasiswaModels.get(i).getNbi() /*+ " " + mahasiswaModels.get(i).getNama()*/;
             createMarker(Double.parseDouble(mahasiswaModels.get(i).getLatitude()),
-                    Double.parseDouble(mahasiswaModels.get(i).getLongitude()),mahasiswaModels.get(i).getNbi());
+                    Double.parseDouble(mahasiswaModels.get(i).getLongitude()),title);
         }
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng,
                 12

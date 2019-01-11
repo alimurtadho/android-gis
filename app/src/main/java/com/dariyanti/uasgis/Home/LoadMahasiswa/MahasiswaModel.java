@@ -8,6 +8,52 @@ public class MahasiswaModel {
     private String tempat;
     private String tanggal_lahir;
     private String telepon;
+    private String fakultas;
+    private String jurusan;
+
+    public String getFakultas() {
+        return fakultas;
+    }
+
+    public void setFakultas(String fakultas) {
+        this.fakultas = fakultas;
+    }
+
+    public String getJurusan() {
+        return jurusan;
+    }
+
+    public void setJurusan(String jurusan) {
+        this.jurusan = jurusan;
+    }
+
+    public String getJenis_kelamin() {
+        return jenis_kelamin;
+    }
+
+    public void setJenis_kelamin(String jenis_kelamin) {
+        this.jenis_kelamin = jenis_kelamin;
+    }
+
+    public String getHobi() {
+        return hobi;
+    }
+
+    public void setHobi(String hobi) {
+        this.hobi = hobi;
+    }
+
+    public String getKewarganegaraan() {
+        return kewarganegaraan;
+    }
+
+    public void setKewarganegaraan(String kewarganegaraan) {
+        this.kewarganegaraan = kewarganegaraan;
+    }
+
+    private String jenis_kelamin;
+    private String hobi;
+    private String kewarganegaraan;
     private String alamat;
     private String foto;
     private String latitude;
