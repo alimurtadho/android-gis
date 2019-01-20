@@ -90,7 +90,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/et_alamat"
-                    android:hint="Alamat"
+                    android:hint="dosen wali"
+                    android:inputType="text"/>
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_dpp"
+                    android:hint="Uang dpp"
+                    android:inputType="number"/>
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_tanggal_masuk"
+                    android:hint="tgl masuk"
+                    android:inputType="text"/>
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_tanggal_keluar"
+                    android:hint="tgl bayar"
                     android:inputType="text"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -241,13 +277,36 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:text="browse foto"
+                android:text="browse foto1"
                 android:id="@+id/btn_browse_foto"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/iv_foto"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="browse foto2"
+                android:id="@+id/btn_browse_foto1"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_foto1"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="browse foto3"
+                android:id="@+id/btn_browse_foto2"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_foto2"/>
+
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

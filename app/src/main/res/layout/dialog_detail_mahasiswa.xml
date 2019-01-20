@@ -125,6 +125,53 @@
                 android:layout_marginTop="20dp">
 
                 <TextView
+                    android:id="@+id/tv_jd_tanggal_masuk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tanggal masuk :"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tv_v_tanggal_masuk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_jd_tanggal_masuk"
+                    android:text="Mahasiswa"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="5dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/tv_jd_tanggal_keluar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tanggal keluar :"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tv_v_tanggal_keluar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_jd_tanggal_keluar"
+                    android:text="Mahasiswa"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="5dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
                     android:id="@+id/tv_jd_telephone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,10 +196,34 @@
                 android:layout_marginTop="20dp">
 
                 <TextView
+                    android:id="@+id/tv_jd_dpp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="uang dpp :"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tv_v_dpp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_jd_dpp"
+                    android:text="Mahasiswa"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="5dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
                     android:id="@+id/tv_jd_alamat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Alamat :"
+                    android:text="dosen_wali :"
                     android:textSize="20sp"/>
 
                 <TextView
@@ -160,7 +231,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tv_jd_alamat"
-                    android:text="Mahasiswa"
+                    android:text="dosen"
                     android:textSize="20sp"
                     android:layout_marginLeft="5dp"/>
             </RelativeLayout>
@@ -298,6 +369,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/iv_v_foto"/>
+
+            <TextView
+                android:id="@+id/tv_jd_foto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FOTO1 :"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_v_foto1"/>
+
+            <TextView
+                android:id="@+id/tv_jd_foto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FOTO2 :"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_v_foto2"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"

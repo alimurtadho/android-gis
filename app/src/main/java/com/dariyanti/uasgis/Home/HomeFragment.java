@@ -99,11 +99,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
     // inisialisasi awal variabel
     private Dialog mTambahMahasiswaDialog, mShowMahasiswaDialog;
-    private EditText et_nbi, et_nama, et_tempat_lahir, et_tanggal_lahir, et_telepon, et_alamat, et_lat, et_long, et_tujuan;
-    private ImageView iv_foto;
-    private Button btn_browse_foto, btn_simpan;
+    private EditText et_nbi, et_nama, et_tempat_lahir, et_tanggal_lahir,et_tanggal_masuk,et_tanggal_keluar,et_dpp, et_telepon, et_alamat, et_lat, et_long, et_tujuan;
+    private ImageView iv_foto,iv_foto1,iv_foto2;
+    private Button btn_browse_foto,btn_browse_foto1,btn_browse_foto2, btn_simpan;
     private FloatingActionButton fab_position;
-    private String mImagePath;
+    private String mImagePath,mImagePath1,mImagePath2;
     private Spinner spin_kewarganegaraan, spin_jurusan, spin_fakultas;
     private RadioGroup rg_jenis_kelamin;
     private RadioButton rb_jenis_kelamin;
@@ -459,6 +459,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         et_alamat = mTambahMahasiswaDialog.findViewById(R.id.et_alamat);
         et_tempat_lahir = mTambahMahasiswaDialog.findViewById(R.id.et_tempat_lahir);
         et_tanggal_lahir = mTambahMahasiswaDialog.findViewById(R.id.et_tanggal_lahir);
+        et_tanggal_masuk = mTambahMahasiswaDialog.findViewById(R.id.et_tanggal_masuk);
+        et_tanggal_keluar = mTambahMahasiswaDialog.findViewById(R.id.et_tanggal_keluar);
+        et_dpp = mTambahMahasiswaDialog.findViewById(R.id.et_dpp);
         et_telepon = mTambahMahasiswaDialog.findViewById(R.id.et_telepon);
         spin_fakultas = mTambahMahasiswaDialog.findViewById(R.id.spin_fakultas);
         spin_jurusan = mTambahMahasiswaDialog.findViewById(R.id.spin_jurusan);
@@ -472,7 +475,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         et_lat = mTambahMahasiswaDialog.findViewById(R.id.et_lat);
         et_long = mTambahMahasiswaDialog.findViewById(R.id.et_long);
         iv_foto = mTambahMahasiswaDialog.findViewById(R.id.iv_foto);
+        iv_foto1 = mTambahMahasiswaDialog.findViewById(R.id.iv_foto1);
+        iv_foto2 = mTambahMahasiswaDialog.findViewById(R.id.iv_foto2);
         btn_browse_foto = mTambahMahasiswaDialog.findViewById(R.id.btn_browse_foto);
+        btn_browse_foto1 = mTambahMahasiswaDialog.findViewById(R.id.btn_browse_foto1);
+        btn_browse_foto2 = mTambahMahasiswaDialog.findViewById(R.id.btn_browse_foto2);
         btn_simpan = mTambahMahasiswaDialog.findViewById(R.id.btn_simpan);
 
         //menginisialisasi posisi awal
@@ -546,6 +553,44 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
             }
         });
 
+        btn_browse_foto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickImageDialog.build(new PickSetup()).setOnPickResult(new IPickResult() {
+                    @Override
+                    public void onPickResult(PickResult pickResult) {
+                        iv_foto1.setImageURI(pickResult.getUri());
+                        Log.d("foto1",pickResult.getUri().toString());
+                        mImagePath1 = pickResult.getPath();
+                    }
+                }).setOnPickCancel(new IPickCancel() {
+                    @Override
+                    public void onCancelClick() {
+
+                    }
+                }).show(getActivity().getSupportFragmentManager());
+            }
+        });
+
+        btn_browse_foto2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickImageDialog.build(new PickSetup()).setOnPickResult(new IPickResult() {
+                    @Override
+                    public void onPickResult(PickResult pickResult) {
+                        iv_foto2.setImageURI(pickResult.getUri());
+                        Log.d("foto2",pickResult.getUri().toString());
+                        mImagePath2 = pickResult.getPath();
+                    }
+                }).setOnPickCancel(new IPickCancel() {
+                    @Override
+                    public void onCancelClick() {
+
+                    }
+                }).show(getActivity().getSupportFragmentManager());
+            }
+        });
+
         et_tanggal_lahir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -564,6 +609,58 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                                                   int monthOfYear, int dayOfMonth) {
                                 // Display Selected date in textbox
                                 et_tanggal_lahir.setText(year + "-"
+                                        + (monthOfYear + 1) + "-" + dayOfMonth);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                dpd.show();
+            }
+        });
+
+        et_tanggal_masuk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int mYear, mMonth, mDay, mHour, mMinute;
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                // Launch Date Picker Dialog
+                DatePickerDialog dpd = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // Display Selected date in textbox
+                                et_tanggal_masuk.setText(year + "-"
+                                        + (monthOfYear + 1) + "-" + dayOfMonth);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                dpd.show();
+            }
+        });
+
+        et_tanggal_keluar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int mYear, mMonth, mDay, mHour, mMinute;
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                // Launch Date Picker Dialog
+                DatePickerDialog dpd = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // Display Selected date in textbox
+                                et_tanggal_keluar.setText(year + "-"
                                         + (monthOfYear + 1) + "-" + dayOfMonth);
 
                             }
@@ -655,11 +752,16 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
 
         request.addFile("photo", mImagePath);
+        request.addFile("photo1", mImagePath1);
+        request.addFile("photo2", mImagePath2);
         request.addStringParam("_method","POST");
         request.addStringParam("nbi", et_nbi.getText().toString());
         request.addStringParam("name",et_nama.getText().toString());
         request.addStringParam("place_of_birth",et_tempat_lahir.getText().toString());
         request.addStringParam("date_of_birth",et_tanggal_lahir.getText().toString());
+        request.addStringParam("dpp",et_dpp.getText().toString());
+        request.addStringParam("tgl_masuk",et_tanggal_masuk.getText().toString());
+        request.addStringParam("tgl_keluar",et_tanggal_keluar.getText().toString());
         request.addStringParam("phone",et_telepon.getText().toString());
         request.addStringParam("address",et_alamat.getText().toString());
         request.addStringParam("faculty",fakultas);
@@ -715,8 +817,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                         model.setJurusan(mahasiswa.getString("major"));
                         model.setJenis_kelamin(mahasiswa.getString("gender"));
                         model.setHobi(mahasiswa.getString("hoby"));
+                        model.setDpp(mahasiswa.getString("dpp"));
+                        model.setTanggal_keluar(mahasiswa.getString("tgl_keluar"));
+                        model.setTanggal_masuk(mahasiswa.getString("tgl_masuk"));
                         model.setKewarganegaraan(mahasiswa.getString("nationality"));
                         model.setFoto(URL.MAHASISWA_IMAGE+mahasiswa.getString("photo"));
+                        model.setFoto1(URL.MAHASISWA_IMAGE+mahasiswa.getString("photo1"));
+                        model.setFoto2(URL.MAHASISWA_IMAGE+mahasiswa.getString("photo2"));
                         model.setLatitude(mahasiswa.getString("latitude"));
                         model.setLongitude(mahasiswa.getString("longitude"));
                         mahasiswaModels.add(model);

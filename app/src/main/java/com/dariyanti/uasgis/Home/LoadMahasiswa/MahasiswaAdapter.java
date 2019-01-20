@@ -59,13 +59,28 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
     private String latitude, longitude, nbi, fakultas;
     private Dialog mEditMahasiswaDialog, mDetailMahasiswaDialog;
 
-    private EditText et_nbi, et_nama, et_tempat_lahir, et_tanggal_lahir, et_telepon, et_alamat, et_lat, et_long, et_tujuan;
-    private ImageView iv_foto, iv_v_foto;
-    private Button btn_browse_foto, btn_simpan;
-    private String mImagePath;
-    private TextView tv_judul,tv_v_nbi,tv_v_nama, tv_v_tempat_lahir, tv_v_tanggal_lahir,
-            tv_v_telephone, tv_v_alamat, tv_v_fakultas, tv_v_jurusan, tv_v_hobi, tv_v_jenis_kelamin,
-            tv_v_kewarganegaraan, tv_v_lat, tv_v_long;
+    private EditText et_nbi, et_nama, et_tempat_lahir, et_tanggal_lahir,et_tanggal_keluar,et_tanggal_masuk,et_dpp, et_telepon, et_alamat, et_lat, et_long, et_tujuan;
+    private ImageView iv_foto, iv_v_foto,iv_foto1, iv_v_foto1,iv_foto2, iv_v_foto2;
+    private Button btn_browse_foto,btn_browse_foto1,btn_browse_foto2, btn_simpan;
+    private String mImagePath,mImagePath1,mImagePath2 ;
+    private TextView
+            tv_judul,
+            tv_v_nbi,
+            tv_v_nama,
+            tv_v_tempat_lahir,
+            tv_v_tanggal_lahir,
+            tv_v_telephone,
+            tv_v_alamat,
+            tv_v_fakultas,
+            tv_v_jurusan,
+            tv_v_hobi,
+            tv_v_dpp,
+            tv_v_tanggal_masuk,
+            tv_v_tanggal_keluar,
+            tv_v_jenis_kelamin,
+            tv_v_kewarganegaraan,
+            tv_v_lat,
+            tv_v_long;
     private RequestQueue requestQueue;
 
     public MahasiswaAdapter(Context context, List models){
@@ -141,6 +156,9 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
         tv_v_nama= mDetailMahasiswaDialog.findViewById(R.id.tv_v_nama);
         tv_v_tempat_lahir= mDetailMahasiswaDialog.findViewById(R.id.tv_v_tempat_lahir);
         tv_v_tanggal_lahir= mDetailMahasiswaDialog.findViewById(R.id.tv_v_tanggal_lahir);
+        tv_v_tanggal_masuk= mDetailMahasiswaDialog.findViewById(R.id.tv_v_tanggal_masuk);
+        tv_v_tanggal_keluar= mDetailMahasiswaDialog.findViewById(R.id.tv_v_tanggal_keluar);
+        tv_v_dpp= mDetailMahasiswaDialog.findViewById(R.id.tv_v_dpp);
         tv_v_telephone= mDetailMahasiswaDialog.findViewById(R.id.tv_v_telephone);
         tv_v_alamat= mDetailMahasiswaDialog.findViewById(R.id.tv_v_alamat);
         tv_v_fakultas = mDetailMahasiswaDialog.findViewById(R.id.tv_v_fakultas);
@@ -151,11 +169,17 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
         tv_v_lat= mDetailMahasiswaDialog.findViewById(R.id.tv_v_lat);
         tv_v_long= mDetailMahasiswaDialog.findViewById(R.id.tv_v_long);
         iv_v_foto = mDetailMahasiswaDialog.findViewById(R.id.iv_v_foto);
+        iv_v_foto1 = mDetailMahasiswaDialog.findViewById(R.id.iv_v_foto1);
+        iv_v_foto2 = mDetailMahasiswaDialog.findViewById(R.id.iv_v_foto2);
+
 
         tv_v_nbi.setText(mahasiswaModels.get(position).getNbi());
         tv_v_nama.setText(mahasiswaModels.get(position).getNama());
         tv_v_tempat_lahir.setText(mahasiswaModels.get(position).getTempat());
         tv_v_tanggal_lahir.setText(mahasiswaModels.get(position).getTanggal_lahir());
+        tv_v_dpp.setText(mahasiswaModels.get(position).getDpp());
+        tv_v_tanggal_masuk.setText(mahasiswaModels.get(position).getTanggal_masuk());
+        tv_v_tanggal_keluar.setText(mahasiswaModels.get(position).getTanggal_keluar());
         tv_v_telephone.setText(mahasiswaModels.get(position).getTelepon());
         tv_v_jurusan.setText(mahasiswaModels.get(position).getJurusan());
         tv_v_alamat.setText(mahasiswaModels.get(position).getAlamat());
@@ -172,6 +196,22 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
         Glide.with(context).load(mahasiswaModels.get(position).getFoto()).apply(requestOptions).into(iv_v_foto);
         mDetailMahasiswaDialog.show();
         Window window = mDetailMahasiswaDialog.getWindow();
+        window.setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        //foto1
+        requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // because file name is always same
+                .skipMemoryCache(true);
+        Glide.with(context).load(mahasiswaModels.get(position).getFoto1()).apply(requestOptions).into(iv_v_foto1);
+        mDetailMahasiswaDialog.show();
+        window = mDetailMahasiswaDialog.getWindow();
+        window.setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        //foto3
+        requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // because file name is always same
+                .skipMemoryCache(true);
+        Glide.with(context).load(mahasiswaModels.get(position).getFoto2()).apply(requestOptions).into(iv_v_foto2);
+        mDetailMahasiswaDialog.show();
+        window = mDetailMahasiswaDialog.getWindow();
         window.setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
     }
 
@@ -251,11 +291,21 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
         et_alamat = mEditMahasiswaDialog.findViewById(R.id.et_alamat);
         et_tempat_lahir = mEditMahasiswaDialog.findViewById(R.id.et_tempat_lahir);
         et_tanggal_lahir = mEditMahasiswaDialog.findViewById(R.id.et_tanggal_lahir);
+        et_tanggal_masuk = mEditMahasiswaDialog.findViewById(R.id.et_tanggal_masuk);
+        et_tanggal_keluar = mEditMahasiswaDialog.findViewById(R.id.et_tanggal_keluar);
+        et_dpp = mEditMahasiswaDialog.findViewById(R.id.et_dpp);
         et_telepon = mEditMahasiswaDialog.findViewById(R.id.et_telepon);
+
         et_lat = mEditMahasiswaDialog.findViewById(R.id.et_lat);
         et_long = mEditMahasiswaDialog.findViewById(R.id.et_long);
+
         iv_foto = mEditMahasiswaDialog.findViewById(R.id.iv_foto);
+        iv_foto1 = mEditMahasiswaDialog.findViewById(R.id.iv_foto1);
+        iv_foto2 = mEditMahasiswaDialog.findViewById(R.id.iv_foto2);
+
         btn_browse_foto = mEditMahasiswaDialog.findViewById(R.id.btn_browse_foto);
+        btn_browse_foto1 = mEditMahasiswaDialog.findViewById(R.id.btn_browse_foto1);
+        btn_browse_foto2 = mEditMahasiswaDialog.findViewById(R.id.btn_browse_foto2);
         btn_simpan = mEditMahasiswaDialog.findViewById(R.id.btn_simpan);
         tv_judul = mEditMahasiswaDialog.findViewById(R.id.judul);
 
@@ -266,6 +316,10 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
         et_alamat.setText(mahasiswaModels.get(position).getAlamat());
         et_tempat_lahir.setText(mahasiswaModels.get(position).getTempat());
         et_tanggal_lahir.setText(mahasiswaModels.get(position).getTanggal_lahir());
+        et_tanggal_masuk.setText(mahasiswaModels.get(position).getTanggal_masuk());
+        et_tanggal_keluar.setText(mahasiswaModels.get(position).getTanggal_keluar());
+        et_dpp.setText(mahasiswaModels.get(position).getDpp());
+
         et_telepon.setText(mahasiswaModels.get(position).getTelepon());
         et_lat.setText(mahasiswaModels.get(position).getLatitude());
         et_long.setText(mahasiswaModels.get(position).getLongitude());
@@ -273,15 +327,62 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
                 .diskCacheStrategy(DiskCacheStrategy.NONE) // because file name is always same
                 .skipMemoryCache(true);
         Glide.with(context).load(mahasiswaModels.get(position).getFoto()).apply(requestOptions).into(iv_foto);
-
         btn_browse_foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PickImageDialog.build(new PickSetup()).setOnPickResult(new IPickResult() {
                     @Override
+                    //setting lagi
                     public void onPickResult(PickResult pickResult) {
                         iv_foto.setImageURI(pickResult.getUri());
                         mImagePath = pickResult.getPath();
+
+                    }
+                }).setOnPickCancel(new IPickCancel() {
+                    @Override
+                    public void onCancelClick() {
+
+                    }
+                }).show(((FragmentActivity)context).getSupportFragmentManager());
+            }
+        });
+        requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // because file name is always same
+                .skipMemoryCache(true);
+        Glide.with(context).load(mahasiswaModels.get(position).getFoto1()).apply(requestOptions).into(iv_foto1);
+        btn_browse_foto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickImageDialog.build(new PickSetup()).setOnPickResult(new IPickResult() {
+                    @Override
+                    //setting lagi
+                    public void onPickResult(PickResult pickResult) {
+                        iv_foto1.setImageURI(pickResult.getUri());
+                        mImagePath1 = pickResult.getPath();
+
+                    }
+                }).setOnPickCancel(new IPickCancel() {
+                    @Override
+                    public void onCancelClick() {
+
+                    }
+                }).show(((FragmentActivity)context).getSupportFragmentManager());
+            }
+        });
+        requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // because file name is always same
+                .skipMemoryCache(true);
+        Glide.with(context).load(mahasiswaModels.get(position).getFoto2()).apply(requestOptions).into(iv_foto2);
+        btn_browse_foto2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickImageDialog.build(new PickSetup()).setOnPickResult(new IPickResult() {
+                    @Override
+                    //setting lagi
+                    public void onPickResult(PickResult pickResult) {
+                        iv_foto2.setImageURI(pickResult.getUri());
+                        mImagePath2 = pickResult.getPath();
+
                     }
                 }).setOnPickCancel(new IPickCancel() {
                     @Override
@@ -318,6 +419,59 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
             }
         });
 
+        et_tanggal_masuk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int mYear, mMonth, mDay, mHour, mMinute;
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                // Launch Date Picker Dialog
+                DatePickerDialog dpd = new DatePickerDialog(context,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // Display Selected date in textbox
+                                et_tanggal_masuk.setText(year + "-"
+                                        + (monthOfYear + 1) + "-" + dayOfMonth);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                dpd.show();
+
+            }
+        });
+
+        et_tanggal_keluar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int mYear, mMonth, mDay, mHour, mMinute;
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                // Launch Date Picker Dialog
+                DatePickerDialog dpd = new DatePickerDialog(context,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // Display Selected date in textbox
+                                et_tanggal_keluar.setText(year + "-"
+                                        + (monthOfYear + 1) + "-" + dayOfMonth);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                dpd.show();
+            }
+        });
+
         btn_simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -329,7 +483,8 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
                     et_lat.setError("Lat Tidak Boleh Kosong");
                 }else if(TextUtils.isEmpty(et_long.getText())){
                     et_long.setError("Long Tidak Boleh Kosong");
-                }else{
+                }else
+                    {
                     prosesEditMahasiswa(position);
                 }
             }
@@ -371,17 +526,26 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
                 });
 
 
-        //Log.d("imgpath", mImagePath);
+        Log.d("imgpath", request.toString());
         request.addStringParam("_method","PUT");
         request.addFile("photo", mImagePath);
+        request.addFile("photo1", mImagePath1);
+        request.addFile("photo2", mImagePath2);
         request.addStringParam("nbi", et_nbi.getText().toString());
         request.addStringParam("name",et_nama.getText().toString());
         request.addStringParam("place_of_birth",et_tempat_lahir.getText().toString());
         request.addStringParam("date_of_birth",et_tanggal_lahir.getText().toString());
         request.addStringParam("phone",et_telepon.getText().toString());
         request.addStringParam("address",et_alamat.getText().toString());
+        request.addStringParam("dpp",et_dpp.getText().toString());
+        request.addStringParam("tgl_masuk",et_tanggal_masuk.getText().toString());
+        request.addStringParam("tgl_keluar",et_tanggal_keluar.getText().toString());
+
         request.addStringParam("latitude", et_lat.getText().toString());
         request.addStringParam("longitude",et_long.getText().toString());
+//        request.addStringParam("longitude",et_long.getText().toString());
+//        request.addStringParam("longitude",et_long.getText().toString());
+//        request.addStringParam("longitude",et_long.getText().toString());
         request.setShouldCache(false);
         Log.d("updatedata", MyRequest.getDebugReqString(url, request));
         MyRequest.getInstance(context).addToRequestQueue(request);
