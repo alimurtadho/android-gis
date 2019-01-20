@@ -3,7 +3,7 @@ package com.dariyanti.uasgis.API;
 public class URL {
 
     public static final String
-            BASE_URL = "http://192.168.100.11:8080/",
+            BASE_URL = "http://172.17.100.2/api-maps/public/",
             //BASE_URL = "http://maps.tiremenggal.com/",
             API_URL = BASE_URL+"api/",
             MAIN_URL = API_URL+"students",

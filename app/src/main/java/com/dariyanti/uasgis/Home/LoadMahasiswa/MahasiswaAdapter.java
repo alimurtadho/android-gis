@@ -497,6 +497,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
 
     private void prosesEditMahasiswa(int position) {
 
+
         String url = URL.MAIN_URL +"/"+mahasiswaModels.get(position).getId();
 //        Log.d("url",url);
         MultipartJSONRequest request = new MultipartJSONRequest(Request.Method.POST, url,
@@ -528,9 +529,15 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
 
         Log.d("imgpath", request.toString());
         request.addStringParam("_method","PUT");
-        request.addFile("photo", mImagePath);
-        request.addFile("photo1", mImagePath1);
-        request.addFile("photo2", mImagePath2);
+        if (mImagePath != null){
+            request.addFile("photo", mImagePath);
+        }
+        if (mImagePath1 != null){
+            request.addFile("photo1", mImagePath1);
+        }
+        if (mImagePath2 != null){
+            request.addFile("photo2", mImagePath2);
+        }
         request.addStringParam("nbi", et_nbi.getText().toString());
         request.addStringParam("name",et_nama.getText().toString());
         request.addStringParam("place_of_birth",et_tempat_lahir.getText().toString());
@@ -543,9 +550,6 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.View
 
         request.addStringParam("latitude", et_lat.getText().toString());
         request.addStringParam("longitude",et_long.getText().toString());
-//        request.addStringParam("longitude",et_long.getText().toString());
-//        request.addStringParam("longitude",et_long.getText().toString());
-//        request.addStringParam("longitude",et_long.getText().toString());
         request.setShouldCache(false);
         Log.d("updatedata", MyRequest.getDebugReqString(url, request));
         MyRequest.getInstance(context).addToRequestQueue(request);

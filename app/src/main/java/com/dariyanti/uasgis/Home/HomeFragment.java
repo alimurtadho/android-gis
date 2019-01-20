@@ -707,7 +707,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                     }
                     int selectedGender = rg_jenis_kelamin.getCheckedRadioButtonId();
                     rb_jenis_kelamin = mTambahMahasiswaDialog.findViewById(selectedGender);
-                    jenis_kelamin = rb_jenis_kelamin.getText().toString();
+
 
                     prosesTambahMahasiswa();
                 }
@@ -751,12 +751,23 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                 });
 
 
-        request.addFile("photo", mImagePath);
-        request.addFile("photo1", mImagePath1);
-        request.addFile("photo2", mImagePath2);
+        if (mImagePath != null){
+            request.addFile("photo", mImagePath);
+        }
+        if (mImagePath1 != null){
+            request.addFile("photo1", mImagePath1);
+        }
+        if (mImagePath2 != null){
+            request.addFile("photo2", mImagePath2);
+        }
+
+
         request.addStringParam("_method","POST");
         request.addStringParam("nbi", et_nbi.getText().toString());
         request.addStringParam("name",et_nama.getText().toString());
+//        Log.d("cek", et_tempat_lahir.getText().toString()+" "+et_tanggal_lahir.getText().toString()+" "+et_dpp.getText().toString()+" "+
+//                fakultas+ " "+jurusan+" "+hobi+" "+ rb_jenis_kelamin.getText().toString()
+//        +" "+kewarganegaraan);
         request.addStringParam("place_of_birth",et_tempat_lahir.getText().toString());
         request.addStringParam("date_of_birth",et_tanggal_lahir.getText().toString());
         request.addStringParam("dpp",et_dpp.getText().toString());
@@ -767,7 +778,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         request.addStringParam("faculty",fakultas);
         request.addStringParam("major",jurusan);
         request.addStringParam("hoby", hobi);
-        request.addStringParam("gender",jenis_kelamin);
+        request.addStringParam("gender",rb_jenis_kelamin.getText().toString());
         request.addStringParam("nationality", kewarganegaraan);
         request.addStringParam("latitude", et_lat.getText().toString());
         request.addStringParam("longitude",et_long.getText().toString());
